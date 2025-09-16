@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Finder</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-briefcase"></i>
+                    <h1>Job Finder</h1>
+                </div>
+                <p class="subtitle">Upload your resume and discover perfect job matches from LinkedIn</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Upload Form -->
+            <section class="upload-section">
+                <div class="form-container">
+                    <form id="jobSearchForm" class="job-form">
+                        <!-- File Upload -->
+                        <div class="form-group">
+                            <label for="resumeFile" class="form-label">
+                                <i class="fas fa-file-pdf"></i>
+                                Upload Resume (PDF)
+                            </label>
+                            <div class="file-upload-wrapper">
+                                <input type="file" id="resumeFile" accept=".pdf" required>
+                                <div class="file-upload-area" id="fileUploadArea">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <p>Drag & drop your PDF resume here or <span>browse files</span></p>
+                                    <small>PDF files only, max 10MB</small>
+                                </div>
+                                <div class="file-preview" id="filePreview" style="display: none;">
+                                    <i class="fas fa-file-pdf"></i>
+                                    <span class="file-name"></span>
+                                    <button type="button" class="remove-file" id="removeFile">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Location Input -->
+                        <div class="form-group">
+                            <label for="location" class="form-label">
+                                <i class="fas fa-map-marker-alt"></i>
+                                Location
+                            </label>
+                            <select id="location" required>
+                                <option value="Remote" selected>Remote</option>
+                                <option value="New York, NY">New York, NY</option>
+                                <option value="Los Angeles, CA">Los Angeles, CA</option>
+                                <option value="Chicago, IL">Chicago, IL</option>
+                                <option value="Houston, TX">Houston, TX</option>
+                                <option value="Phoenix, AZ">Phoenix, AZ</option>
+                                <option value="Philadelphia, PA">Philadelphia, PA</option>
+                                <option value="San Antonio, TX">San Antonio, TX</option>
+                                <option value="San Diego, CA">San Diego, CA</option>
+                                <option value="Dallas, TX">Dallas, TX</option>
+                                <option value="San Jose, CA">San Jose, CA</option>
+                                <option value="Austin, TX">Austin, TX</option>
+                                <option value="Jacksonville, FL">Jacksonville, FL</option>
+                                <option value="Fort Worth, TX">Fort Worth, TX</option>
+                                <option value="Columbus, OH">Columbus, OH</option>
+                                <option value="Charlotte, NC">Charlotte, NC</option>
+                                <option value="San Francisco, CA">San Francisco, CA</option>
+                                <option value="Indianapolis, IN">Indianapolis, IN</option>
+                                <option value="Seattle, WA">Seattle, WA</option>
+                                <option value="Denver, CO">Denver, CO</option>
+                                <option value="Washington, DC">Washington, DC</option>
+                                <option value="Boston, MA">Boston, MA</option>
+                                <option value="El Paso, TX">El Paso, TX</option>
+                                <option value="Nashville, TN">Nashville, TN</option>
+                                <option value="Detroit, MI">Detroit, MI</option>
+                                <option value="Oklahoma City, OK">Oklahoma City, OK</option>
+                                <option value="Portland, OR">Portland, OR</option>
+                                <option value="Las Vegas, NV">Las Vegas, NV</option>
+                                <option value="Memphis, TN">Memphis, TN</option>
+                                <option value="Louisville, KY">Louisville, KY</option>
+                                <option value="Baltimore, MD">Baltimore, MD</option>
+                                <option value="Milwaukee, WI">Milwaukee, WI</option>
+                                <option value="Albuquerque, NM">Albuquerque, NM</option>
+                                <option value="Tucson, AZ">Tucson, AZ</option>
+                                <option value="Fresno, CA">Fresno, CA</option>
+                                <option value="Sacramento, CA">Sacramento, CA</option>
+                                <option value="Kansas City, MO">Kansas City, MO</option>
+                                <option value="Mesa, AZ">Mesa, AZ</option>
+                                <option value="Atlanta, GA">Atlanta, GA</option>
+                                <option value="Omaha, NE">Omaha, NE</option>
+                                <option value="Colorado Springs, CO">Colorado Springs, CO</option>
+                                <option value="Raleigh, NC">Raleigh, NC</option>
+                                <option value="Miami, FL">Miami, FL</option>
+                                <option value="Virginia Beach, VA">Virginia Beach, VA</option>
+                                <option value="Oakland, CA">Oakland, CA</option>
+                                <option value="Minneapolis, MN">Minneapolis, MN</option>
+                                <option value="Tulsa, OK">Tulsa, OK</option>
+                                <option value="Arlington, TX">Arlington, TX</option>
+                                <option value="Tampa, FL">Tampa, FL</option>
+                                <option value="New Orleans, LA">New Orleans, LA</option>
+                            </select>
+                        </div>
+
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="submit-btn" id="submitBtn">
+                            <i class="fas fa-search"></i>
+                            <span>Find My Perfect Jobs</span>
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Loading State -->
+            <section class="loading-section" id="loadingSection" style="display: none;">
+                <div class="loading-container">
+                    <div class="loading-spinner"></div>
+                    <h3>Analyzing Your Resume</h3>
+                    <p>Our AI is scanning LinkedIn for the perfect job matches...</p>
+                    <div class="loading-steps">
+                        <div     class="step active">
+                            <i class="fas fa-file-text"></i>
+                            <span>Parsing Resume</span>
+                        </div>
+                        <div class="step">
+                            <i class="fas fa-search"></i>
+                            <span>Searching Jobs</span>
+                        </div>
+                        <div class="step">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Calculating Matches</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" id="resultsSection" style="display: none;">
+                <!-- Resume Summary -->
+                <div class="resume-summary" id="resumeSummary">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+
+                <!-- Job Results -->
+                <div class="jobs-container">
+                    <div class="results-header">
+                        <h2>Job Matches</h2>
+                        <div class="results-count" id="resultsCount"></div>
+                    </div>
+                    <div class="jobs-grid" id="jobsGrid">
+                        <!-- Job cards will be populated by JavaScript -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Error Section -->
+            <section class="error-section" id="errorSection" style="display: none;">
+                <div class="error-container">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>Oops! Something went wrong</h3>
+                    <p id="errorMessage">Please try again or contact support if the problem persists.</p>
+                    <button class="retry-btn" onclick="resetForm()">
+                        <i class="fas fa-redo"></i>
+                        Try Again
+                    </button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2024 Job Finder. Powered by LinkedIn API & AI Technology.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
