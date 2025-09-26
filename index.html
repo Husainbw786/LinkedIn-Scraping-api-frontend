@@ -15,9 +15,20 @@
             <div class="header-content">
                 <div class="logo">
                     <i class="fas fa-briefcase"></i>
-                    <h1>Job Finder</h1>
+                    <h1>LinkedIn Talent Hub</h1>
                 </div>
-                <p class="subtitle">Upload your resume and discover perfect job matches from LinkedIn</p>
+                <p class="subtitle" id="headerSubtitle">Upload your resume and discover perfect job matches from LinkedIn</p>
+            </div>
+            <!-- Navigation Tabs -->
+            <div class="nav-tabs">
+                <button class="nav-tab active" id="jobsTab" onclick="switchTab('jobs')">
+                    <i class="fas fa-search"></i>
+                    Find Jobs
+                </button>
+                <button class="nav-tab" id="candidatesTab" onclick="switchTab('candidates')">
+                    <i class="fas fa-users"></i>
+                    Find Candidates
+                </button>
             </div>
         </header>
 
@@ -120,14 +131,42 @@
                 </div>
             </section>
 
+            <!-- Candidate Search Form -->
+            <section class="candidate-section" id="candidateSection" style="display: none;">
+                <div class="form-container">
+                    <form id="candidateSearchForm" class="candidate-form">
+                        <!-- Job Description Input -->
+                        <div class="form-group">
+                            <label for="jobDescription" class="form-label">
+                                <i class="fas fa-clipboard-list"></i>
+                                Job Description
+                            </label>
+                            <textarea 
+                                id="jobDescription" 
+                                placeholder="Enter the job description with required skills, experience level, and qualifications..."
+                                rows="8"
+                                required
+                            ></textarea>
+                            <small class="form-hint">Provide detailed requirements to find the best matching candidates</small>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="submit-btn" id="candidateSubmitBtn">
+                            <i class="fas fa-user-search"></i>
+                            <span>Find Matching Candidates</span>
+                        </button>
+                    </form>
+                </div>
+            </section>
+
             <!-- Loading State -->
             <section class="loading-section" id="loadingSection" style="display: none;">
                 <div class="loading-container">
                     <div class="loading-spinner"></div>
-                    <h3>Analyzing Your Resume</h3>
-                    <p>Our AI is scanning LinkedIn for the perfect job matches...</p>
-                    <div class="loading-steps">
-                        <div     class="step active">
+                    <h3 id="loadingTitle">Analyzing Your Resume</h3>
+                    <p id="loadingSubtitle">Our AI is scanning LinkedIn for the perfect job matches...</p>
+                    <div class="loading-steps" id="loadingSteps">
+                        <div class="step active">
                             <i class="fas fa-file-text"></i>
                             <span>Parsing Resume</span>
                         </div>
@@ -162,6 +201,25 @@
                 </div>
             </section>
 
+            <!-- Candidates Results Section -->
+            <section class="candidates-results-section" id="candidatesResultsSection" style="display: none;">
+                <!-- Job Description Summary -->
+                <div class="job-description-summary" id="jobDescriptionSummary">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+
+                <!-- Candidates Results -->
+                <div class="candidates-container">
+                    <div class="results-header">
+                        <h2>Matching Candidates</h2>
+                        <div class="results-count" id="candidatesResultsCount"></div>
+                    </div>
+                    <div class="candidates-grid" id="candidatesGrid">
+                        <!-- Candidate cards will be populated by JavaScript -->
+                    </div>
+                </div>
+            </section>
+
             <!-- Error Section -->
             <section class="error-section" id="errorSection" style="display: none;">
                 <div class="error-container">
@@ -178,7 +236,7 @@
 
         <!-- Footer -->
         <footer class="footer">
-            <p>&copy; 2024 Job Finder. Powered by LinkedIn API & AI Technology.</p>
+            <p>&copy; 2024 LinkedIn Talent Hub. Powered by LinkedIn API & AI Technology.</p>
         </footer>
     </div>
 
