@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Matcher - LinkedIn Talent Hub</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Additional styles specific to resume matcher */
+        .resume-matcher-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .resume-card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .resume-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .resume-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .resume-info {
+            flex: 1;
+        }
+
+        .resume-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 8px;
+        }
+
+        .resume-contact {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 10px;
+            color: #718096;
+            font-size: 0.9rem;
+        }
+
+        .resume-contact > div {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .resume-experience {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .resume-summary {
+            color: #4a5568;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .resume-skills {
+            margin-bottom: 20px;
+        }
+
+        .resume-skills h4 {
+            font-size: 1rem;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        .resume-companies,
+        .resume-titles {
+            margin-bottom: 15px;
+        }
+
+        .resume-companies h4,
+        .resume-titles h4 {
+            font-size: 1rem;
+            color: #2d3748;
+            margin-bottom: 8px;
+        }
+
+        .resume-companies p,
+        .resume-titles p {
+            color: #718096;
+            font-size: 0.9rem;
+        }
+
+        .resume-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .view-resume-btn {
+            flex: 1;
+            background: #dc2626;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .view-resume-btn:hover {
+            background: #b91c1c;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(220, 38, 38, 0.3);
+        }
+
+        .contact-resume-btn {
+            background: #059669;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .contact-resume-btn:hover {
+            background: #047857;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(5, 150, 105, 0.3);
+        }
+
+        .resume-file-info {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #e2e8f0;
+            text-align: center;
+        }
+
+        .resume-file-info small {
+            color: #718096;
+            font-size: 0.85rem;
+        }
+
+        .resume-file-info i {
+            margin-right: 5px;
+            color: #667eea;
+        }
+
+        .no-resumes {
+            text-align: center;
+            padding: 60px 20px;
+            color: #718096;
+        }
+
+        .no-resumes i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #cbd5e0;
+        }
+
+        .no-resumes h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #4a5568;
+        }
+
+        .back-nav {
+            margin-bottom: 20px;
+        }
+
+        .back-nav a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .back-nav a:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="resume-matcher-container">
+        <!-- Back Navigation -->
+        <div class="back-nav">
+            <a href="index.html">
+                <i class="fas fa-arrow-left"></i>
+                Back to Main Hub
+            </a>
+        </div>
+
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-file-pdf"></i>
+                    <h1>Resume Matcher</h1>
+                </div>
+                <p class="subtitle">Find the best matching resumes for your job description</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Job Description Form -->
+            <section class="upload-section">
+                <div class="form-container">
+                    <form id="resumeMatchForm" class="job-form">
+                        <!-- Job Description Input -->
+                        <div class="form-group">
+                            <label for="jobDescription" class="form-label">
+                                <i class="fas fa-clipboard-list"></i>
+                                Job Description
+                            </label>
+                            <textarea 
+                                id="jobDescription" 
+                                placeholder="Enter the job description with required skills, experience level, and qualifications... (e.g., 'python developer with react')"
+                                rows="8"
+                                required
+                            ></textarea>
+                            <small class="form-hint">Provide detailed requirements to find the best matching resumes</small>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="submit-btn" id="submitBtn">
+                            <i class="fas fa-search"></i>
+                            <span>Find Matching Resumes</span>
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Loading State -->
+            <section class="loading-section" id="loadingSection" style="display: none;">
+                <div class="loading-container">
+                    <div class="loading-spinner"></div>
+                    <h3 id="loadingTitle">Analyzing Job Description</h3>
+                    <p id="loadingSubtitle">Our AI is scanning resumes for the best matches...</p>
+                    <div class="loading-steps" id="loadingSteps">
+                        <div class="step active">
+                            <i class="fas fa-clipboard-list"></i>
+                            <span>Processing Description</span>
+                        </div>
+                        <div class="step">
+                            <i class="fas fa-file-pdf"></i>
+                            <span>Scanning Resumes</span>
+                        </div>
+                        <div class="step">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Calculating Matches</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" id="resultsSection" style="display: none;">
+                <!-- Job Description Summary -->
+                <div class="resume-summary" id="jobDescriptionSummary">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+
+                <!-- Resume Results -->
+                <div class="jobs-container">
+                    <div class="results-header">
+                        <h2>Matching Resumes</h2>
+                        <div class="results-count" id="resultsCount"></div>
+                    </div>
+                    <div class="resumes-grid" id="resumesGrid">
+                        <!-- Resume cards will be populated by JavaScript -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Error Section -->
+            <section class="error-section" id="errorSection" style="display: none;">
+                <div class="error-container">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>Oops! Something went wrong</h3>
+                    <p id="errorMessage">Please try again or contact support if the problem persists.</p>
+                    <button class="retry-btn" onclick="resetForm()">
+                        <i class="fas fa-redo"></i>
+                        Try Again
+                    </button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2024 LinkedIn Talent Hub. Powered by LinkedIn API & AI Technology.</p>
+        </footer>
+    </div>
+
+    <script src="resume-matcher.js"></script>
+</body>
+</html>
